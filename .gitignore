@@ -1,0 +1,8 @@
+# This directory is the PUBLIC website repo (pushed to origin / GitHub Pages).
+# Keep build/source artifacts out of the published site.
+
+# Sass source maps (we compile with --no-source-map, so this is defensive).
+*.css.map
+
+# Dev-only screenshots, if ever placed under images/ — never published.
+images/screenshots/

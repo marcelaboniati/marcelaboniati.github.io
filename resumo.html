@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Resumo do pedido — Ateliê Marcela Boniati</title>
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/theme.css" rel="stylesheet" />
+    <script src="scripts/main.js" defer></script>
+</head>
+
+<body>
+    <header id="main_header">
+                <a href="index.html" id="logo"><img alt="Ateliê Marcela Boniati — Biscuit com Propósito" src="images/logo-header.png"/></a>
+        <div id="header_bar">
+            <nav id="main_nav">
+                <div class="nav-dropdown">
+                    <!-- Category panel appended here by scripts/main.js; without JS this stays a plain link -->
+                    <a href="index.html#produtos_disponiveis" id="nav_produtos">Produtos</a>
+                </div>
+                <a href="sobre.html">Sobre</a>
+                <a href="contato.html">Contato</a>
+            </nav>
+            <form action="index.html" id="product_search" method="get" role="search">
+                <input aria-label="Buscar produto" name="q" placeholder="Buscar produto..." type="search" />
+                <button type="submit">Buscar</button>
+            </form>
+            <div id="header_actions">
+                                <button aria-label="Ver carrinho" id="cart_button" type="button">Ver carrinho</button>
+            </div>
+        </div>
+    </header>
+    <main id="resumo_page">
+        <h1>Resumo do pedido</h1>
+        <!-- Summary, name field and send button are rendered by scripts/main.js -->
+        <div id="summary_container"></div>
+    </main>
+<footer id="site_footer">
+<p>Ateliê Marcela Boniati</p>
+<p><a href="https://wa.me/5549988988526">WhatsApp</a></p>
+</footer>
+</body>
+
+</html>
