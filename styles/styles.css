@@ -708,7 +708,7 @@ body {
 }
 #site_footer {
   margin-top: 24px;
-  padding: 16px;
+  padding: 20px 16px;
   text-align: center;
   color: var(--muted);
   background: var(--surface);
@@ -718,7 +718,35 @@ body {
 #site_footer p {
   margin: 4px 0;
 }
-#site_footer a {
+#site_footer .footer-brand {
+  color: var(--heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+#site_footer .footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+#site_footer .footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
   color: var(--accent);
   font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--pill);
+  transition: color 0.15s, background 0.15s;
+}
+#site_footer .footer-social-link svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+#site_footer .footer-social-link:hover {
+  color: var(--primary);
+  background: rgba(0, 0, 0, 0.04);
 }
