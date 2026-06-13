@@ -207,6 +207,7 @@ body {
 }
 #welcome_message p {
   max-width: 60ch;
+  white-space: pre-line;
 }
 
 .whatsapp_button {
