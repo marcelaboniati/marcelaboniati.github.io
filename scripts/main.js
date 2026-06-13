@@ -86,8 +86,76 @@ function updateCartButton() {
     `<span class="cart-ico">${CART_ICON}${badge}</span><span class="cart-label">Ver carrinho</span>`;
 }
 
+// Detail page image gallery: the full picture list lives on data-pictures while
+// the template renders only the first as .detail-image. With 2+ photos, overlay
+// ‹ › arrows on the main image and build a clickable thumbnail strip below it.
+function setupDetailGallery(detail) {
+  const gallery = detail.querySelector(".detail-gallery");
+  const mainImage = gallery && gallery.querySelector(".detail-image");
+  if (!gallery || !mainImage) return;
+
+  const pictures = (detail.dataset.pictures || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (pictures.length <= 1) return; // single image: nothing to scroll through
+
+  const title = detail.dataset.title || mainImage.alt || "";
+  let index = 0;
+
+  // Wrap the existing main image so the arrows can sit over it.
+  const viewport = document.createElement("div");
+  viewport.className = "gallery-viewport";
+  const prev = document.createElement("button");
+  prev.type = "button";
+  prev.className = "gallery-arrow gallery-prev";
+  prev.setAttribute("aria-label", "Imagem anterior");
+  prev.textContent = "‹";
+  const next = document.createElement("button");
+  next.type = "button";
+  next.className = "gallery-arrow gallery-next";
+  next.setAttribute("aria-label", "Próxima imagem");
+  next.textContent = "›";
+  mainImage.insertAdjacentElement("beforebegin", viewport);
+  viewport.append(prev, mainImage, next);
+
+  // Thumbnail strip below the viewport.
+  const strip = document.createElement("div");
+  strip.className = "gallery-thumbs";
+  const thumbs = pictures.map((src, n) => {
+    const thumb = document.createElement("button");
+    thumb.type = "button";
+    thumb.className = "gallery-thumb";
+    thumb.setAttribute("aria-label", `Ver imagem ${n + 1}`);
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = `${title} — imagem ${n + 1}`;
+    img.loading = "lazy";
+    thumb.appendChild(img);
+    thumb.addEventListener("click", () => show(n));
+    strip.appendChild(thumb);
+    return thumb;
+  });
+  gallery.appendChild(strip);
+
+  function show(i) {
+    index = (i + pictures.length) % pictures.length; // wrap around both ends
+    mainImage.src = pictures[index];
+    thumbs.forEach((thumb, n) => {
+      const active = n === index;
+      thumb.classList.toggle("is-active", active);
+      thumb.setAttribute("aria-current", active ? "true" : "false");
+    });
+  }
+
+  prev.addEventListener("click", () => show(index - 1));
+  next.addEventListener("click", () => show(index + 1));
+  show(0);
+}
+
 // Detail page: wire quantity, "Adicionar ao carrinho" and the WhatsApp link.
 function setupProductDetail(detail) {
+  setupDetailGallery(detail);
   const qtyInput = detail.querySelector(".qty-input");
   const addButton = detail.querySelector(".add-to-cart");
   const whatsapp = detail.querySelector(".detail-whatsapp");
