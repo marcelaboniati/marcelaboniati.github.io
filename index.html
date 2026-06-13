@@ -1,181 +1,250 @@
 <!DOCTYPE html>
 
 <html lang="pt-BR">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Ateliê Marcela Boniati</title>
-<meta content="Marcela Boniati" name="author"/>
-<meta content="Este é o catálogo de produtos do Ateliê Marcela Boniati" name="description"/>
-<link href="styles/styles.css" rel="stylesheet"/>
-<link href="styles/theme.css" rel="stylesheet"/>
-<script defer="" src="scripts/main.js"></script>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Ateliê Marcela Boniati</title>
+    <meta content="Marcela Boniati" name="author" />
+    <meta content="Este é o catálogo de produtos do Ateliê Marcela Boniati" name="description" />
+    <link href="styles/styles.css" rel="stylesheet" />
+    <link href="styles/theme.css" rel="stylesheet" />
+    <script defer="" src="scripts/main.js"></script>
 </head>
+
 <body>
-<header id="main_header">
-<a href="index.html" id="logo"><img alt="Ateliê Marcela Boniati — Biscuit com Propósito" src="images/logo-header.png"/></a>
-<div id="header_bar">
-<nav id="main_nav">
-<div class="nav-dropdown">
-<!-- Category panel appended here by scripts/main.js; without JS this stays a plain link -->
-<a href="index.html#produtos_disponiveis" id="nav_produtos">Produtos</a>
-</div>
-<a href="sobre.html">Sobre</a>
-<a href="contato.html">Contato</a>
-</nav>
-<form action="index.html" id="product_search" method="get" role="search">
-<input aria-label="Buscar produto" name="q" placeholder="Buscar produto..." type="search"/>
-<button type="submit">Buscar</button>
-</form>
-<div id="header_actions">
-<button aria-label="Ver carrinho" id="cart_button" type="button">Ver carrinho</button>
-</div>
-</div>
-</header>
-<section id="welcome_message">
-<h1>Bem-vindo ao Ateliê Marcela Boniati</h1>
-<p>
+    <header id="main_header">
+        <a href="index.html" id="logo"><img alt="Ateliê Marcela Boniati — Biscuit com Propósito" src="images/logo-to-be-used.jpg" /></a>
+        <div id="header_bar">
+            <nav id="main_nav">
+                <div class="nav-dropdown">
+                    <!-- Category panel appended here by scripts/main.js; without JS this stays a plain link -->
+                    <a href="index.html#produtos_disponiveis" id="nav_produtos">Produtos</a>
+                </div>
+                <a href="sobre.html">Sobre</a>
+                <a href="contato.html">Contato</a>
+            </nav>
+            <form action="index.html" id="product_search" method="get" role="search">
+                <input aria-label="Buscar produto" name="q" placeholder="Buscar produto..." type="search" />
+                <button type="submit">Buscar</button>
+            </form>
+            <div id="header_actions">
+                <button aria-label="Ver carrinho" id="cart_button" type="button">Ver carrinho</button>
+            </div>
+        </div>
+    </header>
+    <section id="welcome_message">
+        <h1>Bem-vindo ao Ateliê Marcela Boniati</h1>
+        <p>
             Peças artesanais feitas à mão, com carinho e propósito. Explore o catálogo
             e encontre o produto perfeito.
         </p>
-<!-- Generic WhatsApp contact button (glyph + Portuguese label) -->
-<a class="whatsapp_button" href="https://wa.me/5549988988526?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es">
-<svg aria-hidden="true" class="whatsapp_glyph" fill="currentColor" focusable="false" height="20" viewbox="0 0 32 32" width="20">
-<path d="M16 .4C7.4.4.4 7.4.4 16c0 2.8.7 5.5 2.1 7.9L.3 31.6l7.9-2.1c2.3 1.3 4.9 1.9 7.5 1.9h.3c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.5c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5a12.9 12.9 0 0 1-2-6.9C2.4 8.9 8.5 2.9 16 2.9S29.6 8.9 29.6 16 23.5 28.9 16 28.9zm7.4-9.7c-.4-.2-2.4-1.2-2.7-1.3-.4-.1-.7-.2-.9.2-.3.4-1 1.3-1.3 1.6-.2.2-.5.3-.9.1-.4-.2-1.7-.6-3.3-2-1.2-1.1-2-2.4-2.3-2.8-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.6.1-.2 0-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.6-.7-.9-.7h-.7c-.2 0-.6.1-1 .5-.3.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.9c.2.3 2.6 4 6.3 5.6.9.4 1.6.6 2.1.8.9.3 1.7.2 2.3.1.7-.1 2.4-1 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z">
-</path>
-</svg>
-<span>Fale conosco no WhatsApp</span>
-</a>
-</section>
-<section id="featured_section">
-<h2>Produtos em destaque</h2>
-<div class="featured_carousel">
-<button aria-label="Anterior" class="scroll-arrow scroll-left" type="button">‹</button>
-<!-- Container managed by the administration app (id = produtos_destaque) -->
-<div id="produtos_destaque">
-<div class="featured_product">
-<a href="produto-vela-de-aniversario-astronauta-topo-de-bolo-velinha-de-biscuit-mesversario.html">
-<img alt="Vela de aniversário - Astronauta - Topo de Bolo - Velinha de Biscuit - Mesversário" class="product-thumb" src="images/products/vela-de-aniversario-astronauta-topo-de-bolo-velinha-de-biscuit-mesversario/capa.jpg"/>
-<h3 class="product-title">Vela de aniversário - Astronauta - Topo de Bolo - Velinha de Biscuit - Mesversário</h3>
-<span class="product-price">R$75,90</span>
-</a>
-</div>
-<div class="featured_product">
-<a href="produto-vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-rosa-topo-de-bolo-velinha-de-biscuit.html">
-<img alt="Vela de aniversário - 365 Sorrisos - Uma volta ao Sol - Rosa - Topo de Bolo - Velinha de Biscuit" class="product-thumb" src="images/products/vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-rosa-topo-de-bolo-velinha-de-biscuit/capa.jpg"/>
-<h3 class="product-title">Vela de aniversário - 365 Sorrisos - Uma volta ao Sol - Rosa - Topo de Bolo - Velinha de Biscuit</h3>
-<span class="product-price">R$75,90</span>
-</a>
-</div>
-<div class="featured_product">
-<a href="produto-vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-azul-topo-de-bolo-velinha-de-biscuit.html">
-<img alt="Vela de aniversário - 365 Sorrisos - Uma volta ao Sol -  Azul - Topo de Bolo - Velinha de Biscuit" class="product-thumb" src="images/products/vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-azul-topo-de-bolo-velinha-de-biscuit/capa.jpg"/>
-<h3 class="product-title">Vela de aniversário - 365 Sorrisos - Uma volta ao Sol -  Azul - Topo de Bolo - Velinha de Biscuit</h3>
-<span class="product-price">R$75,90</span>
-</a>
-</div>
-<div class="featured_product">
-<a href="produto-vela-de-aniversario-cerejinha-cereja-topo-de-bolo-velinha-de-biscuit-mesversario.html">
-<img alt="Vela de aniversário - Cerejinha - Cereja - Topo de Bolo - Velinha de Biscuit - Mesversário" class="product-thumb" src="images/products/vela-de-aniversario-cerejinha-cereja-topo-de-bolo-velinha-de-biscuit-mesversario/capa.jpg"/>
-<h3 class="product-title">Vela de aniversário - Cerejinha - Cereja - Topo de Bolo - Velinha de Biscuit - Mesversário</h3>
-<span class="product-price">R$75,90</span>
-</a>
-</div>
-<div class="featured_product">
-<a href="produto-vela-de-aniversario-mickey-classico-topo-de-bolo-em-biscuit-velinha-personalizada-disney.html">
-<img alt="Vela de Aniversário Mickey Clássico - Topo de Bolo em Biscuit - Velinha Personalizada Disney" class="product-thumb" src="images/products/vela-de-aniversario-mickey-classico-topo-de-bolo-em-biscuit-velinha-personalizada-disney/capa.jpg"/>
-<h3 class="product-title">Vela de Aniversário Mickey Clássico - Topo de Bolo em Biscuit - Velinha Personalizada Disney</h3>
-<span class="product-price">R$75,90</span>
-</a>
-</div>
-<div class="featured_product">
-<a href="produto-vela-de-aniversario-safari-baby-topo-de-bolo-velinha-de-biscuit-mesversario-bichinhos-do-safari.html">
-<img alt="Vela de aniversário - Safari Baby - Topo de Bolo - Velinha de Biscuit - Mesversário - Bichinhos do Safari" class="product-thumb" src="images/products/vela-de-aniversario-safari-baby-topo-de-bolo-velinha-de-biscuit-mesversario-bichinhos-do-safari/capa.jpg"/>
-<h3 class="product-title">Vela de aniversário - Safari Baby - Topo de Bolo - Velinha de Biscuit - Mesversário - Bichinhos do Safari</h3>
-<span class="product-price">R$75,90</span>
-</a>
-</div>
-</div>
-<button aria-label="Próximo" class="scroll-arrow scroll-right" type="button">›</button>
-</div>
-</section>
-<section id="products_section">
-<h2>Nossos produtos</h2>
-<!-- Active category/search filter indicator (managed by scripts/main.js) -->
-<div hidden="" id="filter_status">
-<span id="filter_status_text"></span>
-<button id="filter_clear" type="button">limpar</button>
-</div>
-<p hidden="" id="no_results">Nenhum produto encontrado. Tente outra busca ou categoria.</p>
-<!-- Container managed by the administration app (id = produtos_disponiveis) -->
-<div class="product-grid" id="produtos_disponiveis">
-<div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo" data-tags="topo de bolo astronauta, velinha astronauta, vela astronauta biscuit, topo astronauta personalizado, topo de bolo espaço, topo de bolo universo, decoração festa astronauta, vela temática astronauta, biscuit astronauta, topper astronauta, topo de bolo foguete, topo de bolo galáxia, festa tema espaço, festa astronauta infantil, vela personalizada astronauta, vela com nome astronauta, vela luxo astronauta, vela aniversário astronauta, astronauta cute, astronauta infantil, personalizado, artesanal, feito à mão, biscuit, aniversário infantil, decoração de bolo, mesversário, festa infantil, topo luxo" data-tema="Astronauta">
-<a href="produto-vela-de-aniversario-astronauta-topo-de-bolo-velinha-de-biscuit-mesversario.html">
-<img alt="Vela de aniversário - Astronauta - Topo de Bolo - Velinha de Biscuit - Mesversário" class="product-thumb" src="images/products/vela-de-aniversario-astronauta-topo-de-bolo-velinha-de-biscuit-mesversario/capa.jpg"/>
-<h3 class="product-title">Vela de aniversário - Astronauta - Topo de Bolo - Velinha de Biscuit - Mesversário</h3>
-<!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
-<p class="product-note">Personalizável com nome e número.</p>
-<span class="product-price">R$75,90</span>
-</a>
-</div>
-<div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo" data-tags="vela 365 sorrisos, velinha 365 sorrisos, vela uma volta ao sol, velinha volta ao sol, vela personalizada sol, topo de bolo 365 sorrisos, topo de bolo uma volta ao sol, topo de bolo solzinho, topo de bolo sunshine, vela tema sol, vela tema céu, vela tema arco-íris candy, decoração festa 365 sorrisos, decoração volta ao sol, decoração festa solzinho, decoração festa sunshine, biscuit solzinho, biscuit céu, topper 365 sorrisos, topper volta ao sol, topper solzinho, festa tema sol, festa uma volta ao sol, festa 365 sorrisos infantil, vela personalizada menina, vela personalizada menino, vela com nome personalizada, vela luxo infantil, vela aniversário infantil, tema céu infantil, tema sunshine baby, solzinho cute, nuvem cute, arco-íris candy, aesthetic infantil, festa delicada infantil, personalizado, artesanal, feito à mão, biscuit, aniversário infantil, decoração de bolo, mesversário, festa infantil, topo luxo, vela biscuit, decoração personalizada, topo personalizado, lembrancinha luxo, tema colorido pastel, festa instagramável, mamãe empreendedora, arte em biscuit, topo delicado, topo moderno, vela decorada, vela temática infantil, uma volta ao sol infantil, 365 motivos pra sorrir, festa feliz, tema alegre infantil" data-tema="">
-<a href="produto-vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-rosa-topo-de-bolo-velinha-de-biscuit.html">
-<img alt="Vela de aniversário - 365 Sorrisos - Uma volta ao Sol - Rosa - Topo de Bolo - Velinha de Biscuit" class="product-thumb" src="images/products/vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-rosa-topo-de-bolo-velinha-de-biscuit/capa.jpg"/>
-<h3 class="product-title">Vela de aniversário - 365 Sorrisos - Uma volta ao Sol - Rosa - Topo de Bolo - Velinha de Biscuit</h3>
-<!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
-<p class="product-note">Personalizável com nome e número</p>
-<span class="product-price">R$75,90</span>
-</a>
-</div>
-<div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo" data-tags="vela 365 sorrisos, velinha 365 sorrisos, vela uma volta ao sol, velinha volta ao sol, vela personalizada sol, topo de bolo 365 sorrisos, topo de bolo uma volta ao sol, topo de bolo solzinho, topo de bolo sunshine, vela tema sol, vela tema céu, vela tema arco-íris candy, decoração festa 365 sorrisos, decoração volta ao sol, decoração festa solzinho, decoração festa sunshine, biscuit solzinho, biscuit céu, topper 365 sorrisos, topper volta ao sol, topper solzinho, festa tema sol, festa uma volta ao sol, festa 365 sorrisos infantil, vela personalizada menina, vela personalizada menino, vela com nome personalizada, vela luxo infantil, vela aniversário infantil, tema céu infantil, tema sunshine baby, solzinho cute, nuvem cute, arco-íris candy, aesthetic infantil, festa delicada infantil, personalizado, artesanal, feito à mão, biscuit, aniversário infantil, decoração de bolo, mesversário, festa infantil, topo luxo, vela biscuit, decoração personalizada, topo personalizado, lembrancinha luxo, tema colorido pastel, festa instagramável, mamãe empreendedora, arte em biscuit, topo delicado, topo moderno, vela decorada, vela temática infantil, uma volta ao sol infantil, 365 motivos pra sorrir, festa feliz, tema alegre infantil" data-tema="">
-<a href="produto-vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-azul-topo-de-bolo-velinha-de-biscuit.html">
-<img alt="Vela de aniversário - 365 Sorrisos - Uma volta ao Sol -  Azul - Topo de Bolo - Velinha de Biscuit" class="product-thumb" src="images/products/vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-azul-topo-de-bolo-velinha-de-biscuit/capa.jpg"/>
-<h3 class="product-title">Vela de aniversário - 365 Sorrisos - Uma volta ao Sol -  Azul - Topo de Bolo - Velinha de Biscuit</h3>
-<!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
-<p class="product-note">Personalizável com nome e número</p>
-<span class="product-price">R$75,90</span>
-</a>
-</div>
-<div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo" data-tags="velinha cereja, velinha cerejinha, vela cerejinha biscuit, vela cereja personalizada, topo de bolo cerejinha, topo de bolo cereja, vela temática cereja, decoração festa cerejinha, biscuit cerejinha, topper cereja, topper cerejinha, festa tema cereja, festa cerejinha infantil, vela personalizada cerejinha, vela com nome cerejinha, vela luxo cerejinha, vela aniversário cerejinha, cerejinha cute, cereja aesthetic, decoração bolo cereja, personalizado, artesanal, feito à mão, biscuit, aniversário infantil, decoração de bolo, mesversário, festa infantil, topo luxo" data-tema="">
-<a href="produto-vela-de-aniversario-cerejinha-cereja-topo-de-bolo-velinha-de-biscuit-mesversario.html">
-<img alt="Vela de aniversário - Cerejinha - Cereja - Topo de Bolo - Velinha de Biscuit - Mesversário" class="product-thumb" src="images/products/vela-de-aniversario-cerejinha-cereja-topo-de-bolo-velinha-de-biscuit-mesversario/capa.jpg"/>
-<h3 class="product-title">Vela de aniversário - Cerejinha - Cereja - Topo de Bolo - Velinha de Biscuit - Mesversário</h3>
-<!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
-<p class="product-note">Personalizável com nome e número</p>
-<span class="product-price">R$75,90</span>
-</a>
-</div>
-<div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo" data-tags="festa mickey, festa disney, decoração de festa infantil, vela artesanal, biscuit artesanal, artesanato em biscuit, peça artesanal, feito à mão, vela luxo, vela premium, vela delicada, vela personalizada infantil, vela para mesversário, vela para aniversário, vela número personalizada, topo mickey clássico, decoração disney infantil, vela menino, decoração alegre infantil, vela caprichada, vela rica em detalhes, mickey retrô, mickey tradicional, disney clássica, topo luxo infantil, vela decorativa, vela temática, aniversário mickey mouse, item personalizado festa, peça exclusiva artesanal, topo de bolo luxo, biscuit disney, vela temática disney, decoração de bolo infantil, topper mickey, topper disney, vela aniversário menino, decoração personalizada mickey" data-tema="Mickey">
-<a href="produto-vela-de-aniversario-mickey-classico-topo-de-bolo-em-biscuit-velinha-personalizada-disney.html">
-<img alt="Vela de Aniversário Mickey Clássico - Topo de Bolo em Biscuit - Velinha Personalizada Disney" class="product-thumb" src="images/products/vela-de-aniversario-mickey-classico-topo-de-bolo-em-biscuit-velinha-personalizada-disney/capa.jpg"/>
-<h3 class="product-title">Vela de Aniversário Mickey Clássico - Topo de Bolo em Biscuit - Velinha Personalizada Disney</h3>
-<!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
-<p class="product-note">Personalizável com nome e número</p>
-<span class="product-price">R$75,90</span>
-</a>
-</div>
-<div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo" data-tags="velinha safari, leão, velinha safari baby, vela leão biscuit, vela safari personalizada, topo de bolo safari, topo de bolo leãozinho, topo de bolo safari, topo de bolo rei leão, vela temática safari, decoração festa safari, decoração festa leãozinho, biscuit leão, biscuit safari, topper leão, topper safari, festa tema safari, festa leãozinho infantil, vela personalizada leão, vela com nome leãozinho, vela luxo safari, vela aniversário leão, rei da selva, rei leão festa, leão cute, safari baby, safari infantil, personalizado, artesanal, feito à mão, biscuit, aniversário infantil, decoração de bolo, mesversário, festa infantil, topo luxo, elefantinho, elefante, zebrinha, zebra" data-tema="Safari">
-<a href="produto-vela-de-aniversario-safari-baby-topo-de-bolo-velinha-de-biscuit-mesversario-bichinhos-do-safari.html">
-<img alt="Vela de aniversário - Safari Baby - Topo de Bolo - Velinha de Biscuit - Mesversário - Bichinhos do Safari" class="product-thumb" src="images/products/vela-de-aniversario-safari-baby-topo-de-bolo-velinha-de-biscuit-mesversario-bichinhos-do-safari/capa.jpg"/>
-<h3 class="product-title">Vela de aniversário - Safari Baby - Topo de Bolo - Velinha de Biscuit - Mesversário - Bichinhos do Safari</h3>
-<!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
-<p class="product-note">Personalizável com nome e número.</p>
-<span class="product-price">R$75,90</span>
-</a>
-</div>
-<div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo" data-tags="velinha, blue, aniversário, topo de bolo, festa infantil, vela, biscuit" data-tema="">
-<a href="produto-vela-de-aniversario-blue-topo-de-bolo-velinha-de-biscuit-mesversario-blue-e-seus-amigos.html">
-<img alt="Vela de aniversário - Blue - Topo de Bolo - Velinha de Biscuit - Mesversário - Blue e seus amigos" class="product-thumb" src="images/products/vela-de-aniversario-blue-topo-de-bolo-velinha-de-biscuit-mesversario-blue-e-seus-amigos/capa.jpg"/>
-<h3 class="product-title">Vela de aniversário - Blue - Topo de Bolo - Velinha de Biscuit - Mesversário - Blue e seus amigos</h3>
-<!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
-<p class="product-note">Personalizável com nome e número</p>
-<span class="product-price">R$75,90</span>
-</a>
-</div></div>
-</section>
-<footer id="site_footer">
-<p>Ateliê Marcela Boniati</p>
-<p><a href="https://wa.me/5549988988526">WhatsApp</a></p>
-</footer>
+        <!-- Generic WhatsApp contact button (glyph + Portuguese label) -->
+        <a class="whatsapp_button"
+            href="https://wa.me/5549988988526?text=Ol%C3%A1!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es">
+            <svg aria-hidden="true" class="whatsapp_glyph" fill="currentColor" focusable="false" height="20"
+                viewbox="0 0 32 32" width="20">
+                <path
+                    d="M16 .4C7.4.4.4 7.4.4 16c0 2.8.7 5.5 2.1 7.9L.3 31.6l7.9-2.1c2.3 1.3 4.9 1.9 7.5 1.9h.3c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.5c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5a12.9 12.9 0 0 1-2-6.9C2.4 8.9 8.5 2.9 16 2.9S29.6 8.9 29.6 16 23.5 28.9 16 28.9zm7.4-9.7c-.4-.2-2.4-1.2-2.7-1.3-.4-.1-.7-.2-.9.2-.3.4-1 1.3-1.3 1.6-.2.2-.5.3-.9.1-.4-.2-1.7-.6-3.3-2-1.2-1.1-2-2.4-2.3-2.8-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.6.1-.2 0-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.6-.7-.9-.7h-.7c-.2 0-.6.1-1 .5-.3.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.9c.2.3 2.6 4 6.3 5.6.9.4 1.6.6 2.1.8.9.3 1.7.2 2.3.1.7-.1 2.4-1 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z">
+                </path>
+            </svg>
+            <span>Fale conosco no WhatsApp</span>
+        </a>
+    </section>
+    <section id="featured_section">
+        <h2>Produtos em destaque</h2>
+        <div class="featured_carousel">
+            <button aria-label="Anterior" class="scroll-arrow scroll-left" type="button">‹</button>
+            <!-- Container managed by the administration app (id = produtos_destaque) -->
+            <div id="produtos_destaque">
+                <div class="featured_product">
+                    <a href="produto-vela-de-aniversario-astronauta-topo-de-bolo-velinha-de-biscuit-mesversario.html">
+                        <img alt="Vela de aniversário - Astronauta - Topo de Bolo - Velinha de Biscuit - Mesversário"
+                            class="product-thumb"
+                            src="images/products/vela-de-aniversario-astronauta-topo-de-bolo-velinha-de-biscuit-mesversario/capa.jpg" />
+                        <h3 class="product-title">Vela de aniversário - Astronauta - Topo de Bolo - Velinha de Biscuit -
+                            Mesversário</h3>
+                        <span class="product-price">R$75,90</span>
+                    </a>
+                </div>
+                <div class="featured_product">
+                    <a
+                        href="produto-vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-rosa-topo-de-bolo-velinha-de-biscuit.html">
+                        <img alt="Vela de aniversário - 365 Sorrisos - Uma volta ao Sol - Rosa - Topo de Bolo - Velinha de Biscuit"
+                            class="product-thumb"
+                            src="images/products/vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-rosa-topo-de-bolo-velinha-de-biscuit/capa.jpg" />
+                        <h3 class="product-title">Vela de aniversário - 365 Sorrisos - Uma volta ao Sol - Rosa - Topo de
+                            Bolo - Velinha de Biscuit</h3>
+                        <span class="product-price">R$75,90</span>
+                    </a>
+                </div>
+                <div class="featured_product">
+                    <a
+                        href="produto-vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-azul-topo-de-bolo-velinha-de-biscuit.html">
+                        <img alt="Vela de aniversário - 365 Sorrisos - Uma volta ao Sol -  Azul - Topo de Bolo - Velinha de Biscuit"
+                            class="product-thumb"
+                            src="images/products/vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-azul-topo-de-bolo-velinha-de-biscuit/capa.jpg" />
+                        <h3 class="product-title">Vela de aniversário - 365 Sorrisos - Uma volta ao Sol - Azul - Topo de
+                            Bolo - Velinha de Biscuit</h3>
+                        <span class="product-price">R$75,90</span>
+                    </a>
+                </div>
+                <div class="featured_product">
+                    <a
+                        href="produto-vela-de-aniversario-cerejinha-cereja-topo-de-bolo-velinha-de-biscuit-mesversario.html">
+                        <img alt="Vela de aniversário - Cerejinha - Cereja - Topo de Bolo - Velinha de Biscuit - Mesversário"
+                            class="product-thumb"
+                            src="images/products/vela-de-aniversario-cerejinha-cereja-topo-de-bolo-velinha-de-biscuit-mesversario/capa.jpg" />
+                        <h3 class="product-title">Vela de aniversário - Cerejinha - Cereja - Topo de Bolo - Velinha de
+                            Biscuit - Mesversário</h3>
+                        <span class="product-price">R$75,90</span>
+                    </a>
+                </div>
+                <div class="featured_product">
+                    <a
+                        href="produto-vela-de-aniversario-mickey-classico-topo-de-bolo-em-biscuit-velinha-personalizada-disney.html">
+                        <img alt="Vela de Aniversário Mickey Clássico - Topo de Bolo em Biscuit - Velinha Personalizada Disney"
+                            class="product-thumb"
+                            src="images/products/vela-de-aniversario-mickey-classico-topo-de-bolo-em-biscuit-velinha-personalizada-disney/capa.jpg" />
+                        <h3 class="product-title">Vela de Aniversário Mickey Clássico - Topo de Bolo em Biscuit -
+                            Velinha Personalizada Disney</h3>
+                        <span class="product-price">R$75,90</span>
+                    </a>
+                </div>
+                <div class="featured_product">
+                    <a
+                        href="produto-vela-de-aniversario-safari-baby-topo-de-bolo-velinha-de-biscuit-mesversario-bichinhos-do-safari.html">
+                        <img alt="Vela de aniversário - Safari Baby - Topo de Bolo - Velinha de Biscuit - Mesversário - Bichinhos do Safari"
+                            class="product-thumb"
+                            src="images/products/vela-de-aniversario-safari-baby-topo-de-bolo-velinha-de-biscuit-mesversario-bichinhos-do-safari/capa.jpg" />
+                        <h3 class="product-title">Vela de aniversário - Safari Baby - Topo de Bolo - Velinha de Biscuit
+                            - Mesversário - Bichinhos do Safari</h3>
+                        <span class="product-price">R$75,90</span>
+                    </a>
+                </div>
+            </div>
+            <button aria-label="Próximo" class="scroll-arrow scroll-right" type="button">›</button>
+        </div>
+    </section>
+    <section id="products_section">
+        <h2>Nossos produtos</h2>
+        <!-- Active category/search filter indicator (managed by scripts/main.js) -->
+        <div hidden="" id="filter_status">
+            <span id="filter_status_text"></span>
+            <button id="filter_clear" type="button">limpar</button>
+        </div>
+        <p hidden="" id="no_results">Nenhum produto encontrado. Tente outra busca ou categoria.</p>
+        <!-- Container managed by the administration app (id = produtos_disponiveis) -->
+        <div class="product-grid" id="produtos_disponiveis">
+            <div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo"
+                data-tags="topo de bolo astronauta, velinha astronauta, vela astronauta biscuit, topo astronauta personalizado, topo de bolo espaço, topo de bolo universo, decoração festa astronauta, vela temática astronauta, biscuit astronauta, topper astronauta, topo de bolo foguete, topo de bolo galáxia, festa tema espaço, festa astronauta infantil, vela personalizada astronauta, vela com nome astronauta, vela luxo astronauta, vela aniversário astronauta, astronauta cute, astronauta infantil, personalizado, artesanal, feito à mão, biscuit, aniversário infantil, decoração de bolo, mesversário, festa infantil, topo luxo"
+                data-tema="Astronauta">
+                <a href="produto-vela-de-aniversario-astronauta-topo-de-bolo-velinha-de-biscuit-mesversario.html">
+                    <img alt="Vela de aniversário - Astronauta - Topo de Bolo - Velinha de Biscuit - Mesversário"
+                        class="product-thumb"
+                        src="images/products/vela-de-aniversario-astronauta-topo-de-bolo-velinha-de-biscuit-mesversario/capa.jpg" />
+                    <h3 class="product-title">Vela de aniversário - Astronauta - Topo de Bolo - Velinha de Biscuit -
+                        Mesversário</h3>
+                    <!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
+                    <p class="product-note">Personalizável com nome e número.</p>
+                    <span class="product-price">R$75,90</span>
+                </a>
+            </div>
+            <div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo"
+                data-tags="vela 365 sorrisos, velinha 365 sorrisos, vela uma volta ao sol, velinha volta ao sol, vela personalizada sol, topo de bolo 365 sorrisos, topo de bolo uma volta ao sol, topo de bolo solzinho, topo de bolo sunshine, vela tema sol, vela tema céu, vela tema arco-íris candy, decoração festa 365 sorrisos, decoração volta ao sol, decoração festa solzinho, decoração festa sunshine, biscuit solzinho, biscuit céu, topper 365 sorrisos, topper volta ao sol, topper solzinho, festa tema sol, festa uma volta ao sol, festa 365 sorrisos infantil, vela personalizada menina, vela personalizada menino, vela com nome personalizada, vela luxo infantil, vela aniversário infantil, tema céu infantil, tema sunshine baby, solzinho cute, nuvem cute, arco-íris candy, aesthetic infantil, festa delicada infantil, personalizado, artesanal, feito à mão, biscuit, aniversário infantil, decoração de bolo, mesversário, festa infantil, topo luxo, vela biscuit, decoração personalizada, topo personalizado, lembrancinha luxo, tema colorido pastel, festa instagramável, mamãe empreendedora, arte em biscuit, topo delicado, topo moderno, vela decorada, vela temática infantil, uma volta ao sol infantil, 365 motivos pra sorrir, festa feliz, tema alegre infantil"
+                data-tema="">
+                <a
+                    href="produto-vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-rosa-topo-de-bolo-velinha-de-biscuit.html">
+                    <img alt="Vela de aniversário - 365 Sorrisos - Uma volta ao Sol - Rosa - Topo de Bolo - Velinha de Biscuit"
+                        class="product-thumb"
+                        src="images/products/vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-rosa-topo-de-bolo-velinha-de-biscuit/capa.jpg" />
+                    <h3 class="product-title">Vela de aniversário - 365 Sorrisos - Uma volta ao Sol - Rosa - Topo de
+                        Bolo - Velinha de Biscuit</h3>
+                    <!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
+                    <p class="product-note">Personalizável com nome e número</p>
+                    <span class="product-price">R$75,90</span>
+                </a>
+            </div>
+            <div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo"
+                data-tags="vela 365 sorrisos, velinha 365 sorrisos, vela uma volta ao sol, velinha volta ao sol, vela personalizada sol, topo de bolo 365 sorrisos, topo de bolo uma volta ao sol, topo de bolo solzinho, topo de bolo sunshine, vela tema sol, vela tema céu, vela tema arco-íris candy, decoração festa 365 sorrisos, decoração volta ao sol, decoração festa solzinho, decoração festa sunshine, biscuit solzinho, biscuit céu, topper 365 sorrisos, topper volta ao sol, topper solzinho, festa tema sol, festa uma volta ao sol, festa 365 sorrisos infantil, vela personalizada menina, vela personalizada menino, vela com nome personalizada, vela luxo infantil, vela aniversário infantil, tema céu infantil, tema sunshine baby, solzinho cute, nuvem cute, arco-íris candy, aesthetic infantil, festa delicada infantil, personalizado, artesanal, feito à mão, biscuit, aniversário infantil, decoração de bolo, mesversário, festa infantil, topo luxo, vela biscuit, decoração personalizada, topo personalizado, lembrancinha luxo, tema colorido pastel, festa instagramável, mamãe empreendedora, arte em biscuit, topo delicado, topo moderno, vela decorada, vela temática infantil, uma volta ao sol infantil, 365 motivos pra sorrir, festa feliz, tema alegre infantil"
+                data-tema="">
+                <a
+                    href="produto-vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-azul-topo-de-bolo-velinha-de-biscuit.html">
+                    <img alt="Vela de aniversário - 365 Sorrisos - Uma volta ao Sol -  Azul - Topo de Bolo - Velinha de Biscuit"
+                        class="product-thumb"
+                        src="images/products/vela-de-aniversario-365-sorrisos-uma-volta-ao-sol-azul-topo-de-bolo-velinha-de-biscuit/capa.jpg" />
+                    <h3 class="product-title">Vela de aniversário - 365 Sorrisos - Uma volta ao Sol - Azul - Topo de
+                        Bolo - Velinha de Biscuit</h3>
+                    <!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
+                    <p class="product-note">Personalizável com nome e número</p>
+                    <span class="product-price">R$75,90</span>
+                </a>
+            </div>
+            <div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo"
+                data-tags="velinha cereja, velinha cerejinha, vela cerejinha biscuit, vela cereja personalizada, topo de bolo cerejinha, topo de bolo cereja, vela temática cereja, decoração festa cerejinha, biscuit cerejinha, topper cereja, topper cerejinha, festa tema cereja, festa cerejinha infantil, vela personalizada cerejinha, vela com nome cerejinha, vela luxo cerejinha, vela aniversário cerejinha, cerejinha cute, cereja aesthetic, decoração bolo cereja, personalizado, artesanal, feito à mão, biscuit, aniversário infantil, decoração de bolo, mesversário, festa infantil, topo luxo"
+                data-tema="">
+                <a href="produto-vela-de-aniversario-cerejinha-cereja-topo-de-bolo-velinha-de-biscuit-mesversario.html">
+                    <img alt="Vela de aniversário - Cerejinha - Cereja - Topo de Bolo - Velinha de Biscuit - Mesversário"
+                        class="product-thumb"
+                        src="images/products/vela-de-aniversario-cerejinha-cereja-topo-de-bolo-velinha-de-biscuit-mesversario/capa.jpg" />
+                    <h3 class="product-title">Vela de aniversário - Cerejinha - Cereja - Topo de Bolo - Velinha de
+                        Biscuit - Mesversário</h3>
+                    <!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
+                    <p class="product-note">Personalizável com nome e número</p>
+                    <span class="product-price">R$75,90</span>
+                </a>
+            </div>
+            <div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo"
+                data-tags="festa mickey, festa disney, decoração de festa infantil, vela artesanal, biscuit artesanal, artesanato em biscuit, peça artesanal, feito à mão, vela luxo, vela premium, vela delicada, vela personalizada infantil, vela para mesversário, vela para aniversário, vela número personalizada, topo mickey clássico, decoração disney infantil, vela menino, decoração alegre infantil, vela caprichada, vela rica em detalhes, mickey retrô, mickey tradicional, disney clássica, topo luxo infantil, vela decorativa, vela temática, aniversário mickey mouse, item personalizado festa, peça exclusiva artesanal, topo de bolo luxo, biscuit disney, vela temática disney, decoração de bolo infantil, topper mickey, topper disney, vela aniversário menino, decoração personalizada mickey"
+                data-tema="Mickey">
+                <a
+                    href="produto-vela-de-aniversario-mickey-classico-topo-de-bolo-em-biscuit-velinha-personalizada-disney.html">
+                    <img alt="Vela de Aniversário Mickey Clássico - Topo de Bolo em Biscuit - Velinha Personalizada Disney"
+                        class="product-thumb"
+                        src="images/products/vela-de-aniversario-mickey-classico-topo-de-bolo-em-biscuit-velinha-personalizada-disney/capa.jpg" />
+                    <h3 class="product-title">Vela de Aniversário Mickey Clássico - Topo de Bolo em Biscuit - Velinha
+                        Personalizada Disney</h3>
+                    <!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
+                    <p class="product-note">Personalizável com nome e número</p>
+                    <span class="product-price">R$75,90</span>
+                </a>
+            </div>
+            <div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo"
+                data-tags="velinha safari, leão, velinha safari baby, vela leão biscuit, vela safari personalizada, topo de bolo safari, topo de bolo leãozinho, topo de bolo safari, topo de bolo rei leão, vela temática safari, decoração festa safari, decoração festa leãozinho, biscuit leão, biscuit safari, topper leão, topper safari, festa tema safari, festa leãozinho infantil, vela personalizada leão, vela com nome leãozinho, vela luxo safari, vela aniversário leão, rei da selva, rei leão festa, leão cute, safari baby, safari infantil, personalizado, artesanal, feito à mão, biscuit, aniversário infantil, decoração de bolo, mesversário, festa infantil, topo luxo, elefantinho, elefante, zebrinha, zebra"
+                data-tema="Safari">
+                <a
+                    href="produto-vela-de-aniversario-safari-baby-topo-de-bolo-velinha-de-biscuit-mesversario-bichinhos-do-safari.html">
+                    <img alt="Vela de aniversário - Safari Baby - Topo de Bolo - Velinha de Biscuit - Mesversário - Bichinhos do Safari"
+                        class="product-thumb"
+                        src="images/products/vela-de-aniversario-safari-baby-topo-de-bolo-velinha-de-biscuit-mesversario-bichinhos-do-safari/capa.jpg" />
+                    <h3 class="product-title">Vela de aniversário - Safari Baby - Topo de Bolo - Velinha de Biscuit -
+                        Mesversário - Bichinhos do Safari</h3>
+                    <!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
+                    <p class="product-note">Personalizável com nome e número.</p>
+                    <span class="product-price">R$75,90</span>
+                </a>
+            </div>
+            <div class="displayed_product" data-categoria="Festa infantil" data-subcategoria="Topo de bolo"
+                data-tags="velinha, blue, aniversário, topo de bolo, festa infantil, vela, biscuit" data-tema="">
+                <a
+                    href="produto-vela-de-aniversario-blue-topo-de-bolo-velinha-de-biscuit-mesversario-blue-e-seus-amigos.html">
+                    <img alt="Vela de aniversário - Blue - Topo de Bolo - Velinha de Biscuit - Mesversário - Blue e seus amigos"
+                        class="product-thumb"
+                        src="images/products/vela-de-aniversario-blue-topo-de-bolo-velinha-de-biscuit-mesversario-blue-e-seus-amigos/capa.jpg" />
+                    <h3 class="product-title">Vela de aniversário - Blue - Topo de Bolo - Velinha de Biscuit -
+                        Mesversário - Blue e seus amigos</h3>
+                    <!-- Optional brief note; the slot reserves space so cards stay uniform even when empty -->
+                    <p class="product-note">Personalizável com nome e número</p>
+                    <span class="product-price">R$75,90</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    <footer id="site_footer">
+        <p>Ateliê Marcela Boniati</p>
+        <p><a href="https://wa.me/5549988988526">WhatsApp</a></p>
+    </footer>
 </body>
+
 </html>
