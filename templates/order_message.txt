@@ -7,13 +7,15 @@
 # Seção {{obs_vazia}} — texto usado em {obs} quando o item não tem observação.
 {{item}}
 --------------------------
-{n}) {title}
+*{n}) {title}*
    Qtd: {qty} ({price} cada)
    Obs: {obs}
 {{pedido}}
 {saudacao}
+
 {items}==========================
-Total: {total}
+
+*Total: {total}*
 {{saudacao}}
 Olá! Sou {nome} e gostaria de fazer este pedido:
 {{saudacao_anonima}}
