@@ -1,0 +1,22 @@
+# Padrão da mensagem de pedido enviada por WhatsApp (texto puro).
+# Linhas iniciadas por # são comentários e são ignoradas pelo gerador.
+# Seção {{item}} — repetida para cada produto. Placeholders: {n} {title} {qty} {price} {obs}
+# Seção {{pedido}} — mensagem final. Placeholders: {saudacao} {items} {total}
+# Seção {{saudacao}} — abertura quando o cliente informa o nome. Placeholder: {nome}
+# Seção {{saudacao_anonima}} — abertura quando o cliente não informa o nome.
+# Seção {{obs_vazia}} — texto usado em {obs} quando o item não tem observação.
+{{item}}
+--------------------------
+{n}) {title}
+   Qtd: {qty} ({price} cada)
+   Obs: {obs}
+{{pedido}}
+{saudacao}
+{items}==========================
+Total: {total}
+{{saudacao}}
+Olá! Sou {nome} e gostaria de fazer este pedido:
+{{saudacao_anonima}}
+Olá! Gostaria de fazer este pedido:
+{{obs_vazia}}
+

@@ -424,10 +424,11 @@ function renderCartPage() {
 const WHATSAPP_GLYPH =
   '<svg aria-hidden="true" class="whatsapp_glyph" fill="currentColor" focusable="false" height="20" viewbox="0 0 32 32" width="20"><path d="M16 .4C7.4.4.4 7.4.4 16c0 2.8.7 5.5 2.1 7.9L.3 31.6l7.9-2.1c2.3 1.3 4.9 1.9 7.5 1.9h.3c8.6 0 15.6-7 15.6-15.6S24.6.4 16 .4zm0 28.5c-2.4 0-4.7-.6-6.7-1.8l-.5-.3-4.7 1.2 1.3-4.6-.3-.5a12.9 12.9 0 0 1-2-6.9C2.4 8.9 8.5 2.9 16 2.9S29.6 8.9 29.6 16 23.5 28.9 16 28.9zm7.4-9.7c-.4-.2-2.4-1.2-2.7-1.3-.4-.1-.7-.2-.9.2-.3.4-1 1.3-1.3 1.6-.2.2-.5.3-.9.1-.4-.2-1.7-.6-3.3-2-1.2-1.1-2-2.4-2.3-2.8-.2-.4 0-.6.2-.8l.6-.7c.2-.2.3-.4.4-.6.1-.2 0-.5 0-.7-.1-.2-.9-2.2-1.3-3-.3-.8-.6-.7-.9-.7h-.7c-.2 0-.6.1-1 .5-.3.4-1.3 1.3-1.3 3.1s1.3 3.6 1.5 3.9c.2.3 2.6 4 6.3 5.6.9.4 1.6.6 2.1.8.9.3 1.7.2 2.3.1.7-.1 2.4-1 2.7-1.9.3-.9.3-1.7.2-1.9-.1-.2-.4-.3-.8-.5z"></path></svg>';
 
-// Fallback copy of templates/order_message.txt — templates/ is not deployed, so
-// the live site relies on this when the fetch is unavailable.
+// Fallback copy of templates/order_message.txt. That file IS deployed (under
+// site/templates/, edited via the admin "Modelos" tab), so loadOrderTemplate normally
+// fetches it; this built-in copy is the last resort if the fetch ever fails offline.
 const ORDER_MESSAGE_FALLBACK =
-  "{{item}}\n{n}) {title}\n   Qtd: {qty} — {price} cada\n   Obs: {obs}\n\n{{pedido}}\n{saudacao}\n\n{items}Total: {total}\n";
+  "{{item}}\n--------------------------\n{n}) {title}\n   Qtd: {qty} — {price} cada\n   Obs: {obs}\n{{pedido}}\n{saudacao}\n{items}==========================\nTotal: {total}\n{{saudacao}}\nOlá! Sou {nome} e gostaria de fazer este pedido:\n{{saudacao_anonima}}\nOlá! Gostaria de fazer este pedido:\n{{obs_vazia}}\n—\n";
 
 async function loadOrderTemplate() {
   try {
@@ -445,33 +446,47 @@ function fillTemplate(tpl, map) {
   return tpl.replace(/{(\w+)}/g, (m, k) => (k in map ? map[k] : m));
 }
 
+// Split the template into named {{section}} blocks -> { name: text }. Each section's
+// text runs from after its marker to the next marker (or EOF), with one leading newline
+// dropped (so the section can start on the line below its marker). Comment lines (#) are
+// stripped first. All message wording lives in these sections — nothing is hardcoded here.
 function parseOrderTemplate(text) {
   const body = text
     .split("\n")
     .filter((l) => !l.startsWith("#"))
     .join("\n");
-  const itemTpl = body.slice(body.indexOf("{{item}}") + 8, body.indexOf("{{pedido}}")).replace(/^\n/, "");
-  const pedidoTpl = body.slice(body.indexOf("{{pedido}}") + 10).replace(/^\n/, "");
-  return { itemTpl, pedidoTpl };
+  const re = /\{\{(\w+)\}\}/g;
+  const sections = {};
+  let match;
+  let name = null;
+  let start = 0;
+  while ((match = re.exec(body))) {
+    if (name !== null) sections[name] = body.slice(start, match.index).replace(/^\n/, "");
+    name = match[1];
+    start = match.index + match[0].length;
+  }
+  if (name !== null) sections[name] = body.slice(start).replace(/^\n/, "");
+  return sections;
 }
 
 function buildOrderMessage(cart, name, templateText) {
-  const { itemTpl, pedidoTpl } = parseOrderTemplate(templateText);
+  const s = parseOrderTemplate(templateText);
+  // Single-value sections are inline text; drop their trailing newline(s).
+  const inline = (key) => (s[key] || "").replace(/\n+$/, "");
+  const emptyObs = inline("obs_vazia");
   const items = cart
     .map((item, i) =>
-      fillTemplate(itemTpl, {
+      fillTemplate(s.item || "", {
         n: String(i + 1),
         title: item.title,
         qty: String(item.qty),
         price: item.price,
-        obs: item.obs ? item.obs : "—",
+        obs: item.obs ? item.obs : emptyObs,
       })
     )
     .join("");
-  const saudacao = name
-    ? `Olá! Sou ${name} e gostaria de fazer este pedido:`
-    : "Olá! Gostaria de fazer este pedido:";
-  return fillTemplate(pedidoTpl, { saudacao, items, total: formatBRL(cartTotal(cart)) });
+  const saudacao = fillTemplate(inline(name ? "saudacao" : "saudacao_anonima"), { nome: name });
+  return fillTemplate(s.pedido || "", { saudacao, items, total: formatBRL(cartTotal(cart)) });
 }
 
 function renderResumoPage() {
