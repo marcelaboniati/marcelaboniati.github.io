@@ -322,7 +322,7 @@ function renderCartPage() {
     obs.className = "cart-obs";
     obs.maxLength = 200;
     obs.rows = 2;
-    obs.placeholder = 'Ex.: escrever "Ana" no topo';
+    obs.placeholder = 'Escreva aqui suas observações';
     obs.value = item.obs || "";
     obs.addEventListener("input", () => setObs(item.slug, obs.value));
     obsLabel.appendChild(obs);

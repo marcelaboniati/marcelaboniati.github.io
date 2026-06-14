@@ -41,14 +41,15 @@ body {
   top: 0;
   z-index: 10;
   background: var(--surface);
-  border: 3px solid var(--accent);
   border-radius: var(--radius);
+  border: 14px solid transparent;
+  border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M30,6 L23,6 Q6,6 6,23 L6,30' stroke='%23c9a0e8'/%3E%3Cpath d='M70,6 L77,6 Q94,6 94,23 L94,30' stroke='%23ff9ec8'/%3E%3Cpath d='M94,70 L94,77 Q94,94 77,94 L70,94' stroke='%23f4df86'/%3E%3Cpath d='M30,94 L23,94 Q6,94 6,77 L6,70' stroke='%2384d2f2'/%3E%3Cpath d='M39,6 L61,6' stroke='%239fe6c1'/%3E%3Cpath d='M94,39 L94,61' stroke='%23ff9ec8'/%3E%3Cpath d='M39,94 L61,94' stroke='%23ff9ec8'/%3E%3Cpath d='M6,39 L6,61' stroke='%2384d2f2'/%3E%3C/svg%3E") 35/14px stretch;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 8px 12px;
+  padding: 2px 8px;
   transition: opacity 0.3s ease;
 }
 #main_header.is-hidden {
@@ -264,6 +265,13 @@ body {
 
 #welcome_message {
   padding: 16px 8px;
+}
+#welcome_message h1,
+#welcome_message p {
+  text-align: justify;
+  text-align-last: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 #welcome_message p {
   max-width: 60ch;
