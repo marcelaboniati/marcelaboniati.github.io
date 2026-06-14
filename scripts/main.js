@@ -82,8 +82,9 @@ function updateCartButton() {
   if (!button) return;
   const n = cartCount();
   const badge = n > 0 ? `<span class="cart-badge">${n}</span>` : "";
-  button.innerHTML =
-    `<span class="cart-ico">${CART_ICON}${badge}</span><span class="cart-label">Ver carrinho</span>`;
+  // Item 7: icon-only — the count lives in the badge; keep the label in aria only.
+  button.innerHTML = `<span class="cart-ico">${CART_ICON}${badge}</span>`;
+  button.setAttribute("aria-label", n > 0 ? `Ver carrinho (${n} item(ns))` : "Ver carrinho");
 }
 
 // Detail page image gallery: the full picture list lives on data-pictures while
@@ -136,7 +137,9 @@ function setupDetailGallery(detail) {
     strip.appendChild(thumb);
     return thumb;
   });
-  gallery.appendChild(strip);
+  // Sit the strip right under the image viewport, so any element placed after it
+  // in the gallery (e.g. the WhatsApp button) stays below the thumbnails.
+  viewport.insertAdjacentElement("afterend", strip);
 
   function show(i) {
     index = (i + pictures.length) % pictures.length; // wrap around both ends
@@ -158,14 +161,17 @@ function setupProductDetail(detail) {
   setupDetailGallery(detail);
   const qtyInput = detail.querySelector(".qty-input");
   const addButton = detail.querySelector(".add-to-cart");
-  const whatsapp = detail.querySelector(".detail-whatsapp");
+  const whatsappButtons = detail.querySelectorAll(".detail-whatsapp");
 
-  if (whatsapp) {
-    // plan.md line 25: message ends with this page's exact URL.
+  if (whatsappButtons.length) {
+    // plan.md line 25: message ends with this page's exact URL. The page has
+    // more than one identical WhatsApp button (below the thumbnails and below
+    // the description), so wire them all.
     const text =
       "Olá! Gostaria de mais informações sobre este produto: " +
       window.location.href;
-    whatsapp.href = "https://wa.me/5549988988526?text=" + encodeURIComponent(text);
+    const href = "https://wa.me/5549988988526?text=" + encodeURIComponent(text);
+    whatsappButtons.forEach((button) => { button.href = href; });
   }
 
   // P5: −/+ stepper around the quantity input (consistent with the cart page).
@@ -789,5 +795,81 @@ document.addEventListener("DOMContentLoaded", () => {
   renderResumoPage();
   setupCatalogFilter();
   setupHeaderSearch();
-  setupCategoryMenu();
+  // The header "Produtos ▾" flyout is retired in favour of the static category
+  // bar under "Nossos produtos"; its filtering JS will be wired in a later pass.
+  // setupCategoryMenu();
+  setupFooterShare();
+  setupHeaderAutoHide();
 });
+
+// Fade the sticky header out while the visitor browses the products grid, so it
+// never sits on top of the cards. "Produtos" tucks it away — on the same page
+// and when arriving from another page (e.g. a detail page) via its hash link.
+// Desktop keeps it hidden while the pointer is over the grid; touch devices have
+// no hover, so it fades back in when the visitor scrolls back to the top.
+const PRODUCTS_HASH = "#nossos_produtos_heading";
+
+function setupHeaderAutoHide() {
+  const header = document.getElementById("main_header");
+  if (!header) return;
+  const hide = () => header.classList.add("is-hidden");
+  const show = () => header.classList.remove("is-hidden");
+  const products = document.getElementById("products_section");
+
+  // True once the grid has scrolled up to (under) the sticky header.
+  const atGrid = () =>
+    !!products && products.getBoundingClientRect().top <= header.offsetHeight;
+
+  // Scroll position is the source of truth — no touch/hover needed, so this also
+  // tucks the header away on mobile as soon as the grid reaches the top, and
+  // brings it back once the visitor scrolls to the top of the page.
+  const syncToScroll = () => {
+    if (window.scrollY <= 8) show();
+    else if (atGrid()) hide();
+  };
+
+  const navProdutos = document.getElementById("nav_produtos");
+  if (navProdutos) navProdutos.addEventListener("click", hide);
+
+  // Landing here via the "Produtos" link (same page or from a detail page)
+  // arrives at this hash — start with the header already tucked away.
+  if (window.location.hash === PRODUCTS_HASH) hide();
+
+  if (products) {
+    products.addEventListener("mouseenter", hide);
+    // On leave, defer to scroll position so it never pops back over the grid.
+    products.addEventListener("mouseleave", () => { if (!atGrid()) show(); });
+  }
+
+  window.addEventListener("scroll", syncToScroll, { passive: true });
+}
+
+// Footer "Compartilhar" button: native share sheet where available, otherwise
+// copy the page URL to the clipboard and briefly confirm on the button label.
+function setupFooterShare() {
+  const button = document.querySelector(".footer-share");
+  if (!button) return;
+  const label = button.querySelector("span");
+  button.addEventListener("click", async () => {
+    const url = window.location.href;
+    const title = document.title || "Ateliê Marcela Boniati";
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, url });
+      } catch (_) {
+        /* user dismissed the share sheet — nothing to do */
+      }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      if (label) {
+        const original = label.textContent;
+        label.textContent = "Link copiado!";
+        setTimeout(() => { label.textContent = original; }, 1800);
+      }
+    } catch (_) {
+      window.prompt("Copie o link:", url);
+    }
+  });
+}
