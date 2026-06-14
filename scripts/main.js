@@ -594,27 +594,27 @@ function parseTags(csv) {
     .filter(Boolean);
 }
 
-// Everything a search query can match on one card: visible title + the metadata.
+// Everything a search query can match on one card: visible title + every metadata
+// data-* on the card (tags split into tokens), so new fields are searchable for free.
 function cardHaystack(card) {
-  const d = card.dataset;
   const titleEl = card.querySelector(".product-title");
-  const title = titleEl ? titleEl.textContent : "";
-  return normalizeText(
-    [title, d.categoria, d.subcategoria, d.tema, parseTags(d.tags).join(" ")].join(" ")
-  );
+  const parts = [titleEl ? titleEl.textContent : ""];
+  const d = card.dataset;
+  for (const key in d) {
+    parts.push(key === "tags" ? parseTags(d[key]).join(" ") : d[key]);
+  }
+  return normalizeText(parts.join(" "));
 }
 
-// Category filter AND search query must both pass; every query token must match.
+// Field filters AND the search query must all pass; every query token must match.
+// `filter` is a flat object: every key except `query` is a data-<key> constraint
+// (empty values ignored), so it works for categoria/subcategoria and any new field.
 function cardMatches(card, filter) {
   const d = card.dataset;
-  if (filter.categoria && normalizeText(d.categoria) !== normalizeText(filter.categoria)) {
-    return false;
-  }
-  if (
-    filter.subcategoria &&
-    normalizeText(d.subcategoria) !== normalizeText(filter.subcategoria)
-  ) {
-    return false;
+  for (const key in filter) {
+    if (key === "query") continue;
+    const want = filter[key];
+    if (want && normalizeText(d[key]) !== normalizeText(want)) return false;
   }
   const q = normalizeText(filter.query);
   if (!q) return true;
@@ -642,11 +642,12 @@ function setupCatalogFilter() {
   if (!grid) return;
 
   const params = new URLSearchParams(window.location.search);
-  const state = {
-    categoria: (params.get("categoria") || "").trim(),
-    subcategoria: (params.get("subcategoria") || "").trim(),
-    query: (params.get("q") || "").trim(),
-  };
+  // q -> free-text search; every other param -> a data-<key> field filter, so the
+  // bar can filter by categoria/subcategoria/tema/personagem or any future field.
+  const state = { query: (params.get("q") || "").trim() };
+  params.forEach((value, key) => {
+    if (key !== "q") state[key] = (value || "").trim();
+  });
 
   const status = document.getElementById("filter_status");
   const statusText = document.getElementById("filter_status_text");
@@ -663,27 +664,31 @@ function setupCatalogFilter() {
       if (show) visible++;
     });
     if (noResults) noResults.hidden = visible > 0;
-    const active = state.categoria || state.query;
+    // Categoria (+ its subcategoria) reads as one crumb; other fields list their value.
+    const parts = [];
+    if (state.categoria) {
+      parts.push(
+        state.subcategoria
+          ? `${state.categoria} › ${state.subcategoria}`
+          : state.categoria
+      );
+    }
+    for (const key in state) {
+      if (key === "query" || key === "categoria" || key === "subcategoria") continue;
+      if (state[key]) parts.push(state[key]);
+    }
+    const active = parts.length > 0 || state.query;
     if (status && statusText) {
-      const parts = [];
-      if (state.categoria) {
-        parts.push(
-          state.subcategoria
-            ? `${state.categoria} › ${state.subcategoria}`
-            : state.categoria
-        );
-      }
-      if (state.query) parts.push(`busca: “${state.query}”`);
-      statusText.textContent = parts.length ? "Filtrando: " + parts.join(" · ") : "";
+      const shown = [...parts];
+      if (state.query) shown.push(`busca: “${state.query}”`);
+      statusText.textContent = shown.length ? "Filtrando: " + shown.join(" · ") : "";
       status.hidden = !active;
     }
   }
 
   if (clearButton) {
     clearButton.addEventListener("click", () => {
-      state.categoria = "";
-      state.subcategoria = "";
-      state.query = "";
+      for (const key in state) state[key] = "";
       if (searchInput) searchInput.value = "";
       history.replaceState(null, "", "index.html#produtos_disponiveis");
       apply();
@@ -719,66 +724,120 @@ function setupHeaderSearch() {
   });
 }
 
-// "Produtos ▾" nav menu: categorias + subcategorias as links to the filtered grid.
-// Built from live card metadata so it never goes stale; on pages without the grid
-// the index is fetched once (on failure the trigger stays a plain working link).
-async function setupCategoryMenu() {
-  const trigger = document.getElementById("nav_produtos");
-  const wrap = trigger && trigger.closest(".nav-dropdown");
-  if (!wrap) return;
-
-  let root = document;
-  if (!document.getElementById("produtos_disponiveis")) {
-    try {
-      const res = await fetch("index.html");
-      if (!res.ok) return;
-      root = new DOMParser().parseFromString(await res.text(), "text/html");
-    } catch {
-      return;
-    }
+// Dynamic category bar (#category_filter_bar): dropdowns built from the schema's
+// data-menu (the role/label list the admin app writes onto the nav) + the live
+// product cards, so titles and sub-items reflect the products actually shown.
+//   primary  -> one button per distinct value (e.g. each Categoria), its panel
+//               listing "Ver tudo" + the nested field's values for that value.
+//   nested   -> consumed as a primary's sub-items (e.g. Subcategoria).
+//   own      -> one button labelled with the field's label, listing its values.
+// Empty groups are dropped (no products → no button). data-tags is never used.
+function buildCategoryBar(root) {
+  const nav = document.getElementById("category_filter_bar");
+  if (!nav) return;
+  let config;
+  try {
+    config = JSON.parse(nav.dataset.menu || "[]");
+  } catch {
+    config = [];
   }
-  const cats = categoriesFromCards(root);
-  if (cats.size === 0) return;
+  if (!Array.isArray(config) || config.length === 0) {
+    nav.replaceChildren();
+    return;
+  }
 
-  const panel = document.createElement("div");
-  panel.className = "nav-panel";
-  panel.hidden = true;
+  const cards = [...root.querySelectorAll("#produtos_disponiveis .displayed_product")];
   const collator = new Intl.Collator("pt-BR");
-  [...cats.keys()].sort(collator.compare).forEach((cat) => {
-    const catLink = document.createElement("a");
-    catLink.href =
-      "index.html?categoria=" + encodeURIComponent(cat) + "#produtos_disponiveis";
-    catLink.textContent = cat;
-    panel.appendChild(catLink);
-    [...cats.get(cat)].sort(collator.compare).forEach((sub) => {
-      const subLink = document.createElement("a");
-      subLink.className = "nav-panel-sub";
-      subLink.href =
-        "index.html?categoria=" + encodeURIComponent(cat) +
-        "&subcategoria=" + encodeURIComponent(sub) + "#produtos_disponiveis";
-      subLink.textContent = sub;
-      panel.appendChild(subLink);
-    });
-  });
-  wrap.appendChild(panel);
+  const closeAll = () =>
+    nav.querySelectorAll(".category-dropdown.open").forEach((d) => d.classList.remove("open"));
 
-  trigger.setAttribute("aria-haspopup", "true");
-  trigger.setAttribute("aria-expanded", "false");
-  trigger.insertAdjacentText("beforeend", " ▾");
-  const setOpen = (open) => {
-    panel.hidden = !open;
-    trigger.setAttribute("aria-expanded", String(open));
+  // Distinct, sorted non-empty values of a data-<key> across the displayed cards.
+  const distinct = (key) => {
+    const set = new Set();
+    cards.forEach((card) => {
+      const v = (card.dataset[key] || "").trim();
+      if (v) set.add(v);
+    });
+    return [...set].sort(collator.compare);
   };
-  trigger.addEventListener("click", (e) => {
-    e.preventDefault(); // tap opens the menu; the panel links do the navigating
-    setOpen(panel.hidden);
+
+  const link = (text, params, cls) => {
+    const a = document.createElement("a");
+    a.href =
+      "index.html?" +
+      Object.entries(params)
+        .map(([k, v]) => encodeURIComponent(k) + "=" + encodeURIComponent(v))
+        .join("&") +
+      "#produtos_disponiveis";
+    a.textContent = text;
+    if (cls) a.className = cls;
+    return a;
+  };
+
+  // One dropdown from a label + its sub-item links; null when there are none.
+  const dropdown = (label, items) => {
+    if (items.length === 0) return null;
+    const wrap = document.createElement("div");
+    wrap.className = "category-dropdown";
+    const toggle = document.createElement("button");
+    toggle.className = "category-toggle";
+    toggle.type = "button";
+    toggle.textContent = label;
+    const panel = document.createElement("ul");
+    panel.className = "category-panel";
+    items.forEach((a) => {
+      const li = document.createElement("li");
+      li.appendChild(a);
+      panel.appendChild(li);
+    });
+    wrap.append(toggle, panel);
+    toggle.addEventListener("click", () => {
+      const open = wrap.classList.contains("open");
+      closeAll(); // CSS handles desktop hover; this is the touch/click path
+      wrap.classList.toggle("open", !open);
+    });
+    return wrap;
+  };
+
+  const nestedEntry = config.find((e) => e.menu === "nested");
+  const built = [];
+  config.forEach((entry) => {
+    if (entry.menu === "nested") return; // consumed under the primary group(s)
+    if (entry.menu === "primary") {
+      distinct(entry.key).forEach((value) => {
+        const items = [link("Ver tudo", { [entry.key]: value })];
+        if (nestedEntry) {
+          const subs = new Set();
+          cards.forEach((card) => {
+            if ((card.dataset[entry.key] || "").trim() !== value) return;
+            const s = (card.dataset[nestedEntry.key] || "").trim();
+            if (s) subs.add(s);
+          });
+          [...subs].sort(collator.compare).forEach((s) =>
+            items.push(link(s, { [entry.key]: value, [nestedEntry.key]: s }, "category-panel-sub"))
+          );
+        }
+        const d = dropdown(value, items);
+        if (d) built.push(d);
+      });
+    } else if (entry.menu === "own") {
+      const items = distinct(entry.key).map((v) => link(v, { [entry.key]: v }));
+      const d = dropdown(entry.label, items);
+      if (d) built.push(d);
+    }
   });
-  document.addEventListener("click", (e) => {
-    if (!wrap.contains(e.target)) setOpen(false);
-  });
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") setOpen(false);
-  });
+
+  nav.replaceChildren(...built);
+
+  if (!nav.dataset.wired) {
+    document.addEventListener("click", (e) => {
+      if (!nav.contains(e.target)) closeAll();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeAll();
+    });
+    nav.dataset.wired = "1";
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -795,9 +854,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderResumoPage();
   setupCatalogFilter();
   setupHeaderSearch();
-  // The header "Produtos ▾" flyout is retired in favour of the static category
-  // bar under "Nossos produtos"; its filtering JS will be wired in a later pass.
-  // setupCategoryMenu();
+  buildCategoryBar(document); // dynamic #category_filter_bar from data-menu + cards
   setupFooterShare();
   setupHeaderAutoHide();
 });
