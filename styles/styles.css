@@ -3,6 +3,10 @@
   font-family: "KGPerfectPenmanship";
   src: url(../fonts/KGPerfectPenmanship.otf) format("opentype");
 }
+@font-face {
+  font-family: "LovelyMarker";
+  src: url(../fonts/Lovely_Marker.otf) format("opentype");
+}
 :root {
   --pill: 999px;
   --radius: 14px;
@@ -75,7 +79,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 2px 8px;
+  padding: calc(var(--frame-w) + 4px) 8px;
   transition: opacity 0.3s ease;
 }
 #main_header.is-hidden {
@@ -98,8 +102,11 @@ body {
 #main_nav {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 12px;
+  font-family: "LovelyMarker", "KGPerfectPenmanship", cursive;
 }
 #main_nav a {
   color: var(--text);
@@ -193,6 +200,10 @@ body {
   #main_header {
     justify-content: center;
     gap: 56px;
+  }
+  #main_nav {
+    flex: 0 1 auto;
+    align-items: flex-end;
   }
   #logo {
     max-width: 260px;
@@ -864,6 +875,7 @@ body {
 }
 #site_footer .footer-brand {
   color: var(--heading);
+  font-family: "LovelyMarker", "KGPerfectPenmanship", cursive;
   font-size: 1.1rem;
   font-weight: 600;
 }
