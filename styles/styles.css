@@ -45,9 +45,6 @@ body {
 }
 
 #main_header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
   background: var(--surface);
   position: relative;
   border-radius: var(--frame-r);
@@ -70,6 +67,9 @@ body {
   mask-composite: exclude;
 }
 #main_header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   display: flex;
   align-items: center;
