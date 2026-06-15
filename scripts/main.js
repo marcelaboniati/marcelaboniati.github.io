@@ -699,6 +699,24 @@ function setupCatalogFilter() {
   if (searchInput) {
     searchInput.addEventListener("input", () => {
       state.query = searchInput.value.trim();
+      // A new search runs across the whole catalog: typing drops any active
+      // category/field filter so it can't hide products the query would match.
+      if (state.query) {
+        let cleared = false;
+        for (const key in state) {
+          if (key !== "query" && state[key]) {
+            state[key] = "";
+            cleared = true;
+          }
+        }
+        if (cleared) {
+          history.replaceState(
+            null,
+            "",
+            "index.html?q=" + encodeURIComponent(state.query) + "#produtos_disponiveis"
+          );
+        }
+      }
       apply();
     });
   }
