@@ -49,7 +49,7 @@ body {
 }
 
 #main_header {
-  background: var(--surface);
+  background: #fff;
   position: relative;
   border-radius: var(--frame-r);
   border: 0;
@@ -866,7 +866,11 @@ body {
   padding: 20px 16px;
   text-align: center;
   color: var(--muted);
-  background: var(--surface);
+  background-color: var(--surface);
+  background-image: url("../images/top-left.png"), url("../images/top-right.png"), url("../images/right-edge.png"), url("../images/left-edge.png"), url("../images/bottom-left.png"), url("../images/bottom-right.png");
+  background-repeat: no-repeat;
+  background-position: top left, top right, right center, left center, bottom left, bottom right;
+  background-size: auto 22.9%, auto 14%, auto 30.8%, auto 24.1%, auto 18.3%, auto 17.9%;
   border-top: 1px solid var(--border);
   border-radius: var(--radius) var(--radius) 0 0;
 }
