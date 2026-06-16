@@ -301,18 +301,92 @@ body {
 }
 
 #welcome_message {
-  padding: 16px 8px;
+  position: relative;
+  overflow: hidden;
+  margin: 16px auto;
+  max-width: 720px;
+  padding: 40px clamp(16px, 4vw, 30px) 36px;
+  text-align: center;
+  border-radius: 20px;
+  background-color: #fff4f6;
+  background-image: radial-gradient(rgba(226, 106, 140, 0.18) 3px, transparent 3.5px);
+  background-size: 22px 22px;
+  background-position: 6px 6px;
+  border: 3px solid #fff;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07), inset 0 0 0 3px color-mix(in srgb, var(--accent) 35%, #fff);
 }
-#welcome_message h1,
-#welcome_message p {
-  text-align: justify;
-  text-align-last: center;
-  margin-left: auto;
-  margin-right: auto;
+#welcome_message h1 {
+  position: relative;
+  z-index: 3;
+  margin: 0 0 12px;
+  font-family: "LovelyMarker", "KGPerfectPenmanship", cursive;
+  font-size: 2.45rem;
+  line-height: 1.14;
+  color: #d44a6a;
+  text-shadow: 0 2px 0 #fff;
 }
 #welcome_message p {
+  position: relative;
+  z-index: 3;
   max-width: 60ch;
+  margin: 0 auto;
   white-space: pre-line;
+  color: #7a5760;
+}
+#welcome_message .welcome-chips {
+  position: relative;
+  z-index: 3;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(8px, 2vw, 12px);
+  margin: 18px 0 0;
+  padding: 0;
+}
+#welcome_message .welcome-chips li {
+  white-space: nowrap;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--pill);
+  padding: clamp(5px, 1.5vw, 8px) clamp(10px, 2.4vw, 15px);
+  font-size: clamp(0.8rem, 2.4vw, 0.9rem);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+#welcome_message .whatsapp_button {
+  position: relative;
+  z-index: 3;
+  margin-top: 18px;
+  font-size: 1.02rem;
+  padding: 11px 22px;
+}
+#welcome_message .welcome-deco {
+  position: absolute;
+  z-index: 2;
+  font-size: clamp(16px, 4.2vw, 24px);
+  line-height: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.12));
+}
+#welcome_message .welcome-deco.tl {
+  left: clamp(8px, 3vw, 18px);
+  top: 8px;
+  transform: rotate(-12deg);
+}
+#welcome_message .welcome-deco.tr {
+  right: clamp(8px, 3vw, 18px);
+  top: 8px;
+}
+#welcome_message .welcome-deco.bl {
+  left: clamp(8px, 3vw, 18px);
+  bottom: 8px;
+}
+#welcome_message .welcome-deco.br {
+  right: clamp(8px, 3vw, 18px);
+  bottom: 8px;
+  transform: rotate(10deg);
 }
 
 .whatsapp_button {
