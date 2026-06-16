@@ -348,7 +348,7 @@ body {
 #welcome_message .welcome-chips li {
   white-space: nowrap;
   background: #fff;
-  border: 1px solid var(--border);
+  border: 1px dashed var(--wa);
   border-radius: var(--pill);
   padding: clamp(5px, 1.5vw, 8px) clamp(10px, 2.4vw, 15px);
   font-size: clamp(0.8rem, 2.4vw, 0.9rem);
@@ -387,6 +387,35 @@ body {
   right: clamp(8px, 3vw, 18px);
   bottom: 8px;
   transform: rotate(10deg);
+}
+
+#products_intro {
+  position: relative;
+  overflow: hidden;
+  margin: 16px auto;
+  max-width: 720px;
+  padding: 40px clamp(16px, 4vw, 30px) 36px;
+  text-align: center;
+  border-radius: 20px;
+  background-color: #fff4f6;
+  background-image: radial-gradient(rgba(226, 106, 140, 0.18) 3px, transparent 3.5px);
+  background-size: 22px 22px;
+  background-position: 6px 6px;
+  border: 3px solid #fff;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07), inset 0 0 0 3px color-mix(in srgb, var(--accent) 35%, #fff);
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+#products_intro h2 {
+  margin: 0 0 6px;
+}
+#products_intro #search_row {
+  justify-content: center;
+  max-width: 440px;
+  margin: 10px auto;
+}
+#products_intro #category_filter_bar {
+  margin-bottom: 0;
 }
 
 .whatsapp_button {

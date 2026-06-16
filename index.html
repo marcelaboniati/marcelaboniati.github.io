@@ -100,16 +100,9 @@
 </div>
 </section>
 <section id="products_section">
+<!-- Catalog controls grouped into a card (styled by #products_intro) -->
+<div id="products_intro">
 <h2 id="nossos_produtos_heading">Nossos produtos</h2>
-<!-- Category filter bar: the admin app writes the field roles/labels into data-menu;
-             scripts/main.js (buildCategoryBar) builds the dropdowns from it + the live cards. -->
-<nav aria-label="Categorias" data-menu='[{"key":"categoria","label":"Categoria","menu":"primary"},{"key":"subcategoria","label":"Subcategoria","menu":"nested"},{"key":"tema","label":"Tema","menu":"own"},{"key":"personagem","label":"Personagem","menu":"own"}]' id="category_filter_bar"></nav>
-<!-- Active category/search filter indicator (managed by scripts/main.js) -->
-<div hidden="" id="filter_status">
-<span id="filter_status_text"></span>
-<button id="filter_clear" type="button">limpar</button>
-</div>
-<p hidden="" id="no_results">Nenhum produto encontrado. Tente outra busca ou categoria.</p>
 <!-- Search + cart row, moved out of the header to sit just above the grid -->
 <div id="search_row">
 <form action="index.html" id="product_search" method="get" role="search">
@@ -124,6 +117,16 @@
 </button>
 </div>
 </div>
+<!-- Category filter bar: the admin app writes the field roles/labels into data-menu;
+             scripts/main.js (buildCategoryBar) builds the dropdowns from it + the live cards. -->
+<nav aria-label="Categorias" data-menu='[{"key":"categoria","label":"Categoria","menu":"primary"},{"key":"subcategoria","label":"Subcategoria","menu":"nested"},{"key":"tema","label":"Tema","menu":"own"},{"key":"personagem","label":"Personagem","menu":"own"}]' id="category_filter_bar"></nav>
+</div>
+<!-- Active category/search filter indicator (managed by scripts/main.js) -->
+<div hidden="" id="filter_status">
+<span id="filter_status_text"></span>
+<button id="filter_clear" type="button">limpar</button>
+</div>
+<p hidden="" id="no_results">Nenhum produto encontrado. Tente outra busca ou categoria.</p>
 <!-- Container managed by the administration app (id = produtos_disponiveis) -->
 <div class="product-grid" id="produtos_disponiveis">
 <div class="displayed_product" data-categoria="Festa infantil" data-personagem="" data-subcategoria="Topo de bolo" data-tags="topo de bolo astronauta, velinha astronauta, vela astronauta biscuit, topo astronauta personalizado, topo de bolo espaço, topo de bolo universo, decoração festa astronauta, vela temática astronauta, biscuit astronauta, topper astronauta, topo de bolo foguete, topo de bolo galáxia, festa tema espaço, festa astronauta infantil, vela personalizada astronauta, vela com nome astronauta, vela luxo astronauta, vela aniversário astronauta, astronauta cute, astronauta infantil, personalizado, artesanal, feito à mão, biscuit, aniversário infantil, decoração de bolo, mesversário, festa infantil, topo luxo" data-tema="Astronauta">
