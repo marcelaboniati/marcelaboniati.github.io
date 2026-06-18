@@ -363,22 +363,34 @@ body {
 }
 
 #products_intro {
+  background: #fff;
   position: relative;
-  overflow: hidden;
+  border-radius: var(--frame-r);
+  border: 0;
+}
+#products_intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: var(--frame-w);
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(var(--f-purple) 0 0), linear-gradient(var(--f-pink) 0 0), linear-gradient(var(--f-yellow) 0 0), linear-gradient(var(--f-cyan) 0 0), linear-gradient(var(--f-green) 0 0), linear-gradient(var(--f-pink) 0 0), linear-gradient(var(--f-yellow) 0 0), linear-gradient(var(--f-purple) 0 0), linear-gradient(var(--f-cyan) 0 0), linear-gradient(var(--f-pink) 0 0), linear-gradient(var(--f-yellow) 0 0);
+  background-position: left top, right top, right bottom, left bottom, center top, right 0 top calc(var(--frame-r) + var(--frame-gap)), right 0 bottom calc(var(--frame-r) + var(--frame-gap)), left 0 top calc(var(--frame-r) + var(--frame-gap)), left 0 bottom calc(var(--frame-r) + var(--frame-gap)), left calc(var(--frame-r) + var(--frame-gap)) bottom 0, right calc(var(--frame-r) + var(--frame-gap)) bottom 0;
+  background-size: var(--frame-r) var(--frame-r), var(--frame-r) var(--frame-r), var(--frame-r) var(--frame-r), var(--frame-r) var(--frame-r), calc(100% - 2 * (var(--frame-r) + var(--frame-gap))) var(--frame-w), var(--frame-w) calc((100% - 2 * var(--frame-r) - 3 * var(--frame-gap)) / 2), var(--frame-w) calc((100% - 2 * var(--frame-r) - 3 * var(--frame-gap)) / 2), var(--frame-w) calc((100% - 2 * var(--frame-r) - 3 * var(--frame-gap)) / 2), var(--frame-w) calc((100% - 2 * var(--frame-r) - 3 * var(--frame-gap)) / 2), calc((100% - 2 * var(--frame-r) - 3 * var(--frame-gap)) / 2) var(--frame-w), calc((100% - 2 * var(--frame-r) - 3 * var(--frame-gap)) / 2) var(--frame-w);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+#products_intro {
+  overflow: visible;
   margin: 16px auto;
   max-width: 720px;
-  padding: 40px clamp(16px, 4vw, 30px) 36px;
   text-align: center;
-  border-radius: 20px;
-  background-color: #fff4f6;
-  background-image: radial-gradient(rgba(226, 106, 140, 0.18) 3px, transparent 3.5px);
-  background-size: 22px 22px;
-  background-position: 6px 6px;
-  border: 3px solid #fff;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07), inset 0 0 0 3px color-mix(in srgb, var(--accent) 35%, #fff);
-  overflow: visible;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 18px clamp(16px, 4vw, 30px);
 }
 #products_intro h2 {
   margin: 0 0 6px;
