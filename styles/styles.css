@@ -580,7 +580,44 @@ body {
   color: var(--muted);
 }
 
-.displayed_product[hidden], #filter_status[hidden], #no_results[hidden], .nav-panel[hidden] {
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  margin: 18px 0 4px;
+}
+.pagination button {
+  min-width: 38px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--pill);
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+}
+.pagination button:disabled {
+  cursor: default;
+}
+.pagination button:disabled:not(.is-current) {
+  opacity: 0.4;
+}
+.pagination .is-current {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  opacity: 1;
+}
+.pagination .pagination-total {
+  margin-left: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.displayed_product[hidden], #filter_status[hidden], #no_results[hidden], .nav-panel[hidden], .pagination[hidden] {
   display: none;
 }
 

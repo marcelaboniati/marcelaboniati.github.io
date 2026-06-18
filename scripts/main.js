@@ -637,6 +637,68 @@ function categoriesFromCards(root) {
   return map;
 }
 
+// The grid shows at most this many cards at once; the rest are reached page by page.
+const PAGE_SIZE = 10;
+
+// Build the page switcher into `nav`: first/prev/next/last arrows + a window of up to
+// five numbers centred on `page` + a "Página X de N" total label. Pure builder — every
+// click delegates to onGoTo(targetPage); page state lives in the caller's closure.
+// Hidden entirely while there is a single page (nothing to switch).
+function renderPager(nav, page, totalPages, onGoTo) {
+  if (!nav) return;
+  if (totalPages <= 1) {
+    nav.replaceChildren();
+    nav.hidden = true;
+    return;
+  }
+  nav.hidden = false;
+
+  const arrow = (label, aria, target, disabled) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = label;
+    b.setAttribute("aria-label", aria);
+    b.disabled = disabled;
+    if (!disabled) b.addEventListener("click", () => onGoTo(target));
+    return b;
+  };
+
+  const children = [
+    arrow("⏮", "Primeira página", 1, page === 1),
+    arrow("◀", "Página anterior", page - 1, page === 1),
+  ];
+
+  // Up to two neighbours on each side, clamped to the valid range.
+  const start = Math.max(1, page - 2);
+  const end = Math.min(totalPages, page + 2);
+  for (let p = start; p <= end; p++) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = String(p);
+    b.setAttribute("aria-label", "Página " + p);
+    if (p === page) {
+      b.classList.add("is-current");
+      b.setAttribute("aria-current", "page");
+      b.disabled = true;
+    } else {
+      b.addEventListener("click", () => onGoTo(p));
+    }
+    children.push(b);
+  }
+
+  children.push(
+    arrow("▶", "Próxima página", page + 1, page === totalPages),
+    arrow("⏭", "Última página", totalPages, page === totalPages)
+  );
+
+  const total = document.createElement("span");
+  total.className = "pagination-total";
+  total.textContent = `Página ${page} de ${totalPages}`;
+  children.push(total);
+
+  nav.replaceChildren(...children);
+}
+
 // Index page: filter the grid from ?categoria/?subcategoria/?q and live search input.
 function setupCatalogFilter() {
   const grid = document.getElementById("produtos_disponiveis");
@@ -657,14 +719,38 @@ function setupCatalogFilter() {
   const searchInput = document.querySelector("#product_search input[name='q']");
   if (searchInput && state.query) searchInput.value = state.query;
 
+  const pager = document.getElementById("pagination");
+  let currentPage = 1;
+
+  // Jump to a page and re-render (clamped in apply()); scroll the grid back into view
+  // so the new page starts from the top.
+  function goToPage(target) {
+    currentPage = target;
+    apply();
+    // Guarded: scrollIntoView is unavailable under jsdom (unit tests).
+    if (typeof grid.scrollIntoView === "function") {
+      grid.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
   function apply() {
-    let visible = 0;
+    // Cards passing the active filter/search, then sliced to the current page.
+    const matched = [...grid.querySelectorAll(".displayed_product")].filter((card) =>
+      cardMatches(card, state)
+    );
+    const totalPages = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
+    if (currentPage > totalPages) currentPage = totalPages;
+
     grid.querySelectorAll(".displayed_product").forEach((card) => {
-      const show = cardMatches(card, state);
-      card.hidden = !show;
-      if (show) visible++;
+      card.hidden = true;
     });
-    if (noResults) noResults.hidden = visible > 0;
+    const start = (currentPage - 1) * PAGE_SIZE;
+    matched.slice(start, start + PAGE_SIZE).forEach((card) => {
+      card.hidden = false;
+    });
+    renderPager(pager, currentPage, totalPages, goToPage);
+
+    if (noResults) noResults.hidden = matched.length > 0;
     // Categoria (+ its subcategoria) reads as one crumb; other fields list their value.
     const parts = [];
     if (state.categoria) {
@@ -692,6 +778,7 @@ function setupCatalogFilter() {
       for (const key in state) state[key] = "";
       if (searchInput) searchInput.value = "";
       history.replaceState(null, "", "index.html#produtos_disponiveis");
+      currentPage = 1; // a fresh, unfiltered grid starts at page 1
       apply();
     });
   }
@@ -700,6 +787,7 @@ function setupCatalogFilter() {
   if (searchInput) {
     searchInput.addEventListener("input", () => {
       state.query = searchInput.value.trim();
+      currentPage = 1; // a changed query re-runs the catalog from page 1
       // A new search runs across the whole catalog: typing drops any active
       // category/field filter so it can't hide products the query would match.
       if (state.query) {
