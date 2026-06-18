@@ -302,18 +302,17 @@ body {
 
 #welcome_message {
   position: relative;
-  overflow: hidden;
   margin: 16px auto;
   max-width: 720px;
   padding: 40px clamp(16px, 4vw, 30px) 36px;
   text-align: center;
   border-radius: 20px;
-  background-color: #fff4f6;
-  background-image: radial-gradient(rgba(226, 106, 140, 0.18) 3px, transparent 3.5px);
-  background-size: 22px 22px;
-  background-position: 6px 6px;
-  border: 3px solid #fff;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07), inset 0 0 0 3px color-mix(in srgb, var(--accent) 35%, #fff);
+  background-color: #fff;
+  background-image: url("../images/top-left.png"), url("../images/top-right.png"), url("../images/right-edge.png"), url("../images/left-edge.png"), url("../images/bottom-left.png"), url("../images/bottom-right.png");
+  background-repeat: no-repeat;
+  background-position: top left, top right, right center, left center, bottom left, bottom right;
+  background-size: auto 22.9%, auto 14%, auto 30.8%, auto 24.1%, auto 18.3%, auto 17.9%;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
 }
 #welcome_message h1 {
   position: relative;
@@ -361,32 +360,6 @@ body {
   margin-top: 18px;
   font-size: 1.02rem;
   padding: 11px 22px;
-}
-#welcome_message .welcome-deco {
-  position: absolute;
-  z-index: 2;
-  font-size: clamp(16px, 4.2vw, 24px);
-  line-height: 1;
-  pointer-events: none;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.12));
-}
-#welcome_message .welcome-deco.tl {
-  left: clamp(8px, 3vw, 18px);
-  top: 8px;
-  transform: rotate(-12deg);
-}
-#welcome_message .welcome-deco.tr {
-  right: clamp(8px, 3vw, 18px);
-  top: 8px;
-}
-#welcome_message .welcome-deco.bl {
-  left: clamp(8px, 3vw, 18px);
-  bottom: 8px;
-}
-#welcome_message .welcome-deco.br {
-  right: clamp(8px, 3vw, 18px);
-  bottom: 8px;
-  transform: rotate(10deg);
 }
 
 #products_intro {
